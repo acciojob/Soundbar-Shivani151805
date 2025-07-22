@@ -1,5 +1,6 @@
-const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
 
+  document.addEventListener("DOMContentLoaded", () => {
+    const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
     const buttonsContainer = document.getElementById('buttons');
 
     sounds.forEach(sound => {
@@ -11,13 +12,13 @@ const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
         stopAllSounds();
         const audio = new Audio(`sounds/${sound}.mp3`);
         audio.play();
-        // Store playing audio in DOM for stopping
         document.body.appendChild(audio);
       });
-		buttonsContainer.appendChild(btn);
+
+      buttonsContainer.appendChild(btn);
     });
 
-const stopBtn = document.createElement('button');
+    const stopBtn = document.createElement('button');
     stopBtn.classList.add('stop');
     stopBtn.innerText = 'stop';
 
@@ -33,4 +34,6 @@ const stopBtn = document.createElement('button');
         audio.currentTime = 0;
         audio.remove();
       });
-	}
+    }
+  });
+
