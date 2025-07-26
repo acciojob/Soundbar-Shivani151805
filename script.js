@@ -4,22 +4,19 @@ const buttons = document.querySelectorAll('.btn');
     buttons.forEach(button => {
       button.addEventListener('click', () => {
         stopAllSounds();
-        const soundName = button.getAttribute('data-sound');
-        const audio = new Audio(`sounds/${soundName}.mp3`);
-        audio.play();
-        audio.setAttribute('data-playing', 'true');
-        document.body.appendChild(audio);
+        const soundId = button.getAttribute('data-sound');
+        const audio = document.getElementById(soundId);
+        if (audio) {
+          audio.currentTime = 0;
+          audio.play();
+        }
       });
     });
-
-stopBtn.addEventListener('click', () => {
-      stopAllSounds();
-    });
+stopBtn.addEventListener('click', stopAllSounds);
 
     function stopAllSounds() {
-      document.querySelectorAll('audio[data-playing="true"]').forEach(audio => {
+      document.querySelectorAll('audio').forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
-        audio.remove();
       });
     }
