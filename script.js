@@ -1,39 +1,25 @@
+const buttons = document.querySelectorAll('.btn');
+    const stopBtn = document.querySelector('.stop');
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
-    const buttonsContainer = document.getElementById('buttons');
-
-    sounds.forEach(sound => {
-      const btn = document.createElement('button');
-      btn.classList.add('btn');
-      btn.innerText = sound;
-
-      btn.addEventListener('click', () => {
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
         stopAllSounds();
-        const audio = new Audio(`sounds/${sound}.mp3`);
+        const soundName = button.getAttribute('data-sound');
+        const audio = new Audio(`sounds/${soundName}.mp3`);
         audio.play();
+        audio.setAttribute('data-playing', 'true');
         document.body.appendChild(audio);
       });
-
-      buttonsContainer.appendChild(btn);
     });
 
-    const stopBtn = document.createElement('button');
-    stopBtn.classList.add('stop');
-    stopBtn.innerText = 'stop';
-
-    stopBtn.addEventListener('click', () => {
+stopBtn.addEventListener('click', () => {
       stopAllSounds();
     });
 
-    buttonsContainer.appendChild(stopBtn);
-
     function stopAllSounds() {
-      document.querySelectorAll('audio').forEach(audio => {
+      document.querySelectorAll('audio[data-playing="true"]').forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
         audio.remove();
       });
     }
-  });
-
